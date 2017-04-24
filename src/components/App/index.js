@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import Home from '../Home';
+import HvacList from '../HvacList';
+import AddHvac from '../AddHvac';
+import Profile from '../Profile';
+import Login from '../Login';
+import SignUp from '../SignUp';
 import './style.css';
 
 export default class App extends Component {
@@ -11,34 +14,52 @@ export default class App extends Component {
         return (
             <Router>
                 <div>
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/topics">Topics</Link></li>
-                    </ul>
-
+                    <Navbar inverse collapseOnSelect>
+                        <Navbar.Header>
+                            <Navbar.Brand>
+                                <a href="#">React-Bootstrap</a>
+                            </Navbar.Brand>
+                            <Navbar.Toggle />
+                        </Navbar.Header>
+                        <Navbar.Collapse>
+                            <Nav>
+                                <NavItem eventKey={1} href="#">Link</NavItem>
+                                <NavItem eventKey={2} href="#">Link</NavItem>
+                                <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+                                    <MenuItem eventKey={3.1}>Action</MenuItem>
+                                    <MenuItem eventKey={3.2}>Another action</MenuItem>
+                                    <MenuItem eventKey={3.3}>Something else here</MenuItem>
+                                    <MenuItem divider />
+                                    <MenuItem eventKey={3.3}>Separated link</MenuItem>
+                                </NavDropdown>
+                            </Nav>
+                            <Nav pullRight>
+                                <NavItem eventKey={1} href="#">Link Right</NavItem>
+                                <NavItem eventKey={2} href="#">Link Right</NavItem>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                    <nav id="page-navigation">
+                        <Link to="/">Home</Link>
+                        <Link to="/meshvac">Mes HVAC</Link>
+                        <Link to="/ajouterhvac">Ajouter un HVAC</Link>
+                        <Link to="/moncompte">Mon Compte</Link>
+                        <Link to="/login">Se connecter</Link>
+                        <Link to="/signup">S'inscrire</Link>
+                    </nav>
                     <hr/>
-
                     <Route exact path="/" component={Home}/>
-                    <Route path="/about" component={About}/>
+                    <Route path="/meshvac" component={HvacList}/>
+                    <Route path="/ajouterhvac" component={AddHvac}/>
+                    <Route path="/moncompte" component={Profile}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={SignUp}/>
                     <Route path="/topics" component={Topics}/>
                 </div>
             </Router>
         );
     }
 }
-
-const Home = () => (
-    <div>
-        <h2>Home</h2>
-    </div>
-)
-
-const About = () => (
-    <div>
-        <h2>About</h2>
-    </div>
-)
 
 const Topics = ({ match }) => (
     <div>
@@ -66,10 +87,10 @@ const Topics = ({ match }) => (
             <h3>Please select a topic.</h3>
         )}/>
     </div>
-)
+);
 
 const Topic = ({ match }) => (
     <div>
         <h3>{match.params.topicId}</h3>
     </div>
-)
+);
