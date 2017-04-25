@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem, Jumbotron} from 'react-bootstrap';
 import Home from '../Home';
 import HvacList from '../HvacList';
 import AddHvac from '../AddHvac';
@@ -17,14 +17,13 @@ export default class App extends Component {
                     <Navbar inverse collapseOnSelect>
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <a href="#">React-Bootstrap</a>
+                                <Link to="/">Home</Link>
                             </Navbar.Brand>
-                            <Navbar.Toggle />
                         </Navbar.Header>
                         <Navbar.Collapse>
                             <Nav>
-                                <NavItem eventKey={1} href="#">Link</NavItem>
-                                <NavItem eventKey={2} href="#">Link</NavItem>
+                                <NavItem eventKey={1}><Link to="/meshvac">Mes HVAC</Link></NavItem>
+                                <NavItem eventKey={2}><Link to="/ajouterhvac">Ajouter un HVAC</Link></NavItem>
                                 <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                                     <MenuItem eventKey={3.1}>Action</MenuItem>
                                     <MenuItem eventKey={3.2}>Another action</MenuItem>
@@ -34,20 +33,14 @@ export default class App extends Component {
                                 </NavDropdown>
                             </Nav>
                             <Nav pullRight>
-                                <NavItem eventKey={1} href="#">Link Right</NavItem>
-                                <NavItem eventKey={2} href="#">Link Right</NavItem>
+                                <NavItem eventKey={1}><Link to="/moncompte">Mon Compte</Link></NavItem>
+                                <NavItem eventKey={2}><Link to="/login">Se connecter</Link></NavItem>
+                                <NavItem eventKey={3}><Link to="/signup">S'inscrire</Link></NavItem>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
-                    <nav id="page-navigation">
-                        <Link to="/">Home</Link>
-                        <Link to="/meshvac">Mes HVAC</Link>
-                        <Link to="/ajouterhvac">Ajouter un HVAC</Link>
-                        <Link to="/moncompte">Mon Compte</Link>
-                        <Link to="/login">Se connecter</Link>
-                        <Link to="/signup">S'inscrire</Link>
-                    </nav>
                     <hr/>
+
                     <Route exact path="/" component={Home}/>
                     <Route path="/meshvac" component={HvacList}/>
                     <Route path="/ajouterhvac" component={AddHvac}/>
