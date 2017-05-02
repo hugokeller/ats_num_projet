@@ -5,7 +5,7 @@ class Home extends Component {
 
     render() {
         return (
-            <h1>HomePage</h1>
+            <h1>Page d'accueil - Gestion des HVAC</h1>
         );
     }
 }
