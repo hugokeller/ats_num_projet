@@ -16,7 +16,7 @@ export default class SignUp extends Component {
                             <FormInput type="password" name="password" label="Mot de passe" className="col-xs-12"/>
                             <FormInput type="password" name="passwordconf" label="Confirmation mot de passe" className="col-xs-12"/>
                             <FormInput name="company" label="Entreprise" className="col-xs-12"/>
-                            <FormInput name="IDHVAC" label="Numéro de série du nouvel HVAC" className="col-xs-12"/>
+                            <FormInput name="idhvac" label="Numéro de série du nouvel HVAC" className="col-xs-12"/>
 
                         </SignUpForm>
                 </div>
