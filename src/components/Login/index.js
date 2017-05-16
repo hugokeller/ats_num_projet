@@ -10,16 +10,16 @@ export default class Login extends Component {
                 <h1>Se connecter</h1>
                 <div>
                     <LoginForm className="card card-block">
-                        <FormInput name="email" label="email" className="col-xs-12"/>
-                        <FormInput type="password" name="password" label="password" className="col-xs-12"/>
+                        <FormInput name="email" label="Adresse mail" className="col-xs-12"/>
+                        <FormInput type="password" name="password" label="Mot de passe" className="col-xs-12"/>
                     </LoginForm>
                 </div>
             </div>
         )
     }
-}
+};
 
-export const Form = ({children, className, action = 'submit', onSubmit, inputs}) => (
+export const Form = ({children, className, action = 'Connexion', onSubmit, inputs}) => (
     <form className={className}>
         {children}
         <div className="form-group col-xs-12">
