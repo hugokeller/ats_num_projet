@@ -1,83 +1,73 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
+import fetch from 'isomorphic-fetch';
+
 
 export default class HvacList extends Component {
+    constructor(props){
+        super(props);
+        fetch('http://localhost:8080/hvacs')
+            .then( response => response.json)
+            .then( json => console.log(json))
+        this.state = {
+            hvacs : [
+
+                {
+                    name: "Fourvière", idhvac: "1689895896", purchasedate: "19/05/2007", lastpowerconsumed: "156KW"
+                },
+
+                {
+                    name: "St Just", idhvac: "1588794635", purchasedate: "03/12/2012", lastpowerconsumed: "114KW"
+                },
+
+                {
+                    name: "Bellecour", idhvac: "1598784361", purchasedate: "25/03/2002", lastpowerconsumed: "78KW"
+                }
+            ]
+        };
+    }
+    fetchHvacs(e){
+        e.preventDefault;
+        fetch('http://localhost:8080/hvacs')
+            .then( response => response.json)
+            .then( json => {
+                console.log(json);
+                this.setState({
+                    hvacs : json
+                })
+                console.log('json', json)
+            })
+    }
     render() {
+        // this.fetchHvacs.bind(this);
         return (
+            <Router>
             <div>
                 <h1>Liste de mes HVACs</h1>
-                    <div>
-                        <HvacListForm className="card card-block">
+                <div>
+                    <ul id = "listbox">
 
+                        <li value="01"><Link to='/hvac1' > {'Nom HVAC: ' + this.state.hvacs[0].name + ' -- ID HVAC:' + this.state.hvacs[0].idhvac} </Link></li>
 
-                            <select id = "listbox">
-                                <option value="01"> {'Nom HVAC: ' + hvacs[0].name + ' -- ID HVAC:' + hvacs[0].idhvac}</option>
-                                <option value="02"> {'Nom HVAC: ' + hvacs[1].name + ' -- ID HVAC: ' + hvacs[1].idhvac} </option>
-                                <option value="03"> {'Nom HVAC: ' + hvacs[2].name + ' -- ID HVAC: ' + hvacs[2].idhvac} </option>
-                            </select>
+                        <li value="02"><Link to="/hvac2"> {'Nom HVAC: ' + this.state.hvacs[1].name + ' -- ID HVAC: ' + this.state.hvacs[1].idhvac} </Link></li>
 
-
-
-                        </HvacListForm>
-
-                    </div>
+                        <li value="03"><Link to="/hvac3"> {'Nom HVAC: ' + this.state.hvacs[2].name + ' -- ID HVAC: ' +this.state. hvacs[2].idhvac} </Link></li>
+                    </ul>
+                </div>
             </div>
+            </Router>
         )
     }
 };
 
-export const Form = ({children, className, action = 'Afficher HVAC', onSubmit, inputs}) => (
-    <form className={className}>
-        {children}
-        <div className="form-group col-xs-12">
-            <button type="submit" className="btn btn-success " onClick={(e) => {
-                e.preventDefault();
-                onSubmit(inputs);
-            }}>
-                {action}
-            </button>
-        </div>
-    </form>
-);
-
-const mapStateToHvacListFormProps = (state) => ({
+const mapStateToHvacListProps = (state) => ({
     inputs: state.inputs,
 });
-const mapDispatchToHvacListFormProps = (dispatch, ownProps) => ({
+
+const mapDispatchToHvacListProps = (dispatch, ownProps) => ({
     onSubmit: (inputs) => {
         dispatch(HvacList({name: inputs.name.value, idhvac: inputs.idhvac.value, purchasedate: inputs.purchasedate.value, lastpowerconsumed: inputs.lastpowerconsumed.value}));
     }
 });
-
-const HvacListForm = connect(mapStateToHvacListFormProps, mapDispatchToHvacListFormProps)(Form);
-
-
-
-    var hvacs = [
-
-    {
-        name: "Fourvière", idhvac: "1689895896", purchasedate: "19/05/2007", lastpowerconsumed: "156KW"
-    },
-
-    {
-        name: "St Just", idhvac: "1588794635", purchasedate: "03/12/2012", lastpowerconsumed: "114KW"
-    },
-
-    {
-        name: "Bellecour", idhvac: "1598784361", purchasedate: "25/03/2002", lastpowerconsumed: "78KW"
-    }
-    ];
-    let MaxHvac = hvacs.length - 1;
-
-    function addButton(nombrehvac) {
-        var i;
-        for (i=0; i < nombrehvac; i++) {
-            var button = document.createElement("input") ;
-            button.type = "button" ;
-            button.value = 'Nom HVAC: ' + hvacs[i].name + ' -- ID HVAC:' + hvacs[i].IDHVAC ;
-            button.name = i ;
-
-        }
-    }
-
