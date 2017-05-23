@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import FormInput from '../forms';
 import fetch from 'isomorphic-fetch';
 
 
 export default class HvacList extends Component {
     constructor(props){
         super(props);
-        fetch('http://localhost:8080/hvacs')
-            .then( response => response.json)
-            .then( json => console.log(json))
         this.state = {
             hvacs : [
 
@@ -36,7 +32,7 @@ export default class HvacList extends Component {
                 console.log(json);
                 this.setState({
                     hvacs : json
-                })
+                });
                 console.log('json', json)
             })
     }

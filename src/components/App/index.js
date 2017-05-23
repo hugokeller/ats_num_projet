@@ -22,13 +22,14 @@ export default class App extends Component {
                         </Navbar.Header>
                         <Navbar.Collapse>
                             <Nav>
-                                <NavDropdown eventKey={1} title="Mes HVACs" id="basic-nav-dropdown">
-                                    <MenuItem eventKey={1.1}>Premier HVAC</MenuItem>
-                                    <MenuItem eventKey={1.2}>Deuxième HVAC</MenuItem>
-                                    <MenuItem eventKey={1.3}>Troisième HVAC</MenuItem>
-                                    <MenuItem divider />
-                                    <MenuItem eventKey={1.3}><Link to="/meshvac">Mes HVAC</Link></MenuItem>
-                                </NavDropdown>
+                                {/*<NavDropdown eventKey={1} title="Mes HVACs" id="basic-nav-dropdown">*/}
+                                    {/*<MenuItem eventKey={1.1}>Premier HVAC</MenuItem>*/}
+                                    {/*<MenuItem eventKey={1.2}>Deuxième HVAC</MenuItem>*/}
+                                    {/*<MenuItem eventKey={1.3}>Troisième HVAC</MenuItem>*/}
+                                    {/*<MenuItem divider />*/}
+                                    {/*<MenuItem eventKey={1.3}><Link to="/meshvac">Mes HVAC</Link></MenuItem>*/}
+                                {/*</NavDropdown>*/}
+                                <NavItem eventKey={1}><Link to="/meshvac">Mes HVAC</Link></NavItem>
                                 <NavItem eventKey={2}><Link to="/ajouterhvac">Ajouter un HVAC</Link></NavItem>
                             </Nav>
                             <Nav pullRight>
