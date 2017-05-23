@@ -27,3 +27,6 @@ export const user = (state = {}, action) => {
 
 const loginReducer = combineReducers({user, inputs});
 export default loginReducer;
+
+/*const addHvacReducer = combineReducers({user, inputs});
+export default addHvacReducer*/
