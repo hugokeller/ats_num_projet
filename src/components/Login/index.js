@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
-import logIn from '../../actions';
+import { logIn, changeInput } from '../../actions';
+
 
 export default class Login extends Component {
     render() {
         return (
             <div>
                 <h1>Se connecter</h1>
-                <div>
+                <div className="col-xs-3">
                     <LoginForm className="card card-block">
                         <FormInput name="email" label="Adresse mail" className="col-xs-12"/>
                         <FormInput type="password" name="password" label="Mot de passe" className="col-xs-12"/>
@@ -38,7 +39,8 @@ const mapStateToLogInFormProps = (state) => ({
 });
 const mapDispatchToLogInFormProps = (dispatch, ownProps) => ({
     onSubmit: (inputs) => {
-        dispatch(logIn({email: inputs.email.value, password: inputs.password.value}));
+        // dispatch(logIn({email: inputs.email.value, password: inputs.password.value}));
+        logIn({email: inputs.email.value, password: inputs.password.value});
     }
 });
 const LoginForm = connect(mapStateToLogInFormProps, mapDispatchToLogInFormProps)(Form);
