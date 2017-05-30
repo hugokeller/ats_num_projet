@@ -1,3 +1,6 @@
+/**
+ * Created by Bobo on 30/05/2017.
+ */
 
 
 export const CHANGE_INPUT = 'CHANGE_INPUT';
@@ -30,16 +33,17 @@ export const logIn = (user) => {
     // .catch(error => dispatch(receiveFailure(error)));
 };
 
-export const addhvac = (user) => {
+const addHvac = (user) => {
     return fetch(`${GET_AUTH_URL}`, {
         method: 'POST',
         headers: JSON_HEADERS,
         credentials: 'same-origin',
         body: JSON.stringify({Nom_HVAC: user.Nom_HVAC, Matricule_HVAC: user.Matricule_HVAC, Nom_du_Client:user.Nom_du_Client,
-        Situation_Geographique: user.Situation_Geographique})
+            Situation_Geographique: user.Situation_Geographique})
     })
         .then(body => body.json());
 };
+export default addHvac()
 
 export const profile = (user) => {
     return fetch(`${GET_AUTH_URL}`, {
@@ -51,3 +55,18 @@ export const profile = (user) => {
     })
         .then(body => body.json());
 };
+
+
+export const usernameEntered = (text) => {
+    return {
+        type: 'USERNAME_ENTERED',
+        text
+    }
+}
+
+export const passwordEntered = (text) => {
+    return {
+        type: 'PASSWORD_ENTERED',
+        text
+    }
+}

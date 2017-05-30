@@ -1,5 +1,9 @@
-import {CHANGE_INPUT} from './actions';
+/**
+ * Created by Bobo on 30/05/2017.
+ */
+import {CHANGE_INPUT} from '../actions/index';
 import {combineReducers} from 'redux';
+import { profile } from '../actions/index'
 
 export const input = (state = {}, action) => {
     switch (action.type) {
@@ -29,4 +33,11 @@ const loginReducer = combineReducers({user, inputs});
 export default loginReducer;
 
 /*const addHvacReducer = combineReducers({user, inputs});
-export default addHvacReducer*/
+ export default addHvacReducer*/
+
+
+const initialState = {
+    username: "Default User",
+    email: "12345678@provider.com",
+    password: "",
+}

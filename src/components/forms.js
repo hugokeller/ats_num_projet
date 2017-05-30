@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import changeInput from '../actions';
+import changeInput from '../actions/index';
 
 let Input = ({type = 'text', name, label, className = 'col-xs-12', onInputChange}) => {
     let input;

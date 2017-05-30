@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
-import logIn from '../../actions';
+import logIn from '../../actions/index';
 
 export default class Login extends Component {
     render() {

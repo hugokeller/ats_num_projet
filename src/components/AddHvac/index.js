@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
-import addhvac from '../../actions';
+import addHvac from '../../actions/index';
 
 
 export default class AddHvac extends Component {
@@ -43,7 +43,7 @@ const mapStateToAddhvacFormProps = (state) => ({
 const mapDispatchToAddhvacFormProps = (dispatch, ownProps) => {
     return {
         onSubmit: (inputs) => {
-            dispatch(addhvac({
+            dispatch(addHvac({
                 Nom_HVAC: inputs.Nom_HVAC, Matricule_HVAC: inputs.Matricule_HVAC,
                 Nom_du_Client: inputs.Nom_du_Client, Situation_Geographique: inputs.Situation_Geographique
             }));
