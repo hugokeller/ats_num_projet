@@ -17,20 +17,20 @@ export default class App extends Component {
                     <Navbar inverse collapseOnSelect>
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <Link to="/">Home</Link>
+                                <Link to="/">Accueil</Link>
                             </Navbar.Brand>
                         </Navbar.Header>
                         <Navbar.Collapse>
                             <Nav>
+                                {/*<NavDropdown eventKey={1} title="Mes HVACs" id="basic-nav-dropdown">*/}
+                                    {/*<MenuItem eventKey={1.1}>Premier HVAC</MenuItem>*/}
+                                    {/*<MenuItem eventKey={1.2}>Deuxième HVAC</MenuItem>*/}
+                                    {/*<MenuItem eventKey={1.3}>Troisième HVAC</MenuItem>*/}
+                                    {/*<MenuItem divider />*/}
+                                    {/*<MenuItem eventKey={1.3}><Link to="/meshvac">Mes HVAC</Link></MenuItem>*/}
+                                {/*</NavDropdown>*/}
                                 <NavItem eventKey={1}><Link to="/meshvac">Mes HVAC</Link></NavItem>
                                 <NavItem eventKey={2}><Link to="/ajouterhvac">Ajouter un HVAC</Link></NavItem>
-                                <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                                    <MenuItem eventKey={3.1}>Action</MenuItem>
-                                    <MenuItem eventKey={3.2}>Another action</MenuItem>
-                                    <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                                    <MenuItem divider />
-                                    <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                                </NavDropdown>
                             </Nav>
                             <Nav pullRight>
                                 <NavItem eventKey={1}><Link to="/moncompte">Mon Compte</Link></NavItem>
