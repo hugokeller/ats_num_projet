@@ -39,7 +39,6 @@ const mapStateToLogInFormProps = (state) => ({
 });
 const mapDispatchToLogInFormProps = (dispatch, ownProps) => ({
     onSubmit: (inputs) => {
-        // dispatch(logIn({email: inputs.email.value, password: inputs.password.value}));
         logIn({email: inputs.email.value, password: inputs.password.value});
     }
 });
