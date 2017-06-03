@@ -12,18 +12,13 @@ export default class HvacList extends Component {
         };
     }
     fetchHvacs(idUser){
-        let hvacs = [{
-            "idHvac": 0,
-            "sMatricule": "NONE",
-            "sNomHvac": "Aucun Hvac",
-        }];
         fetch('http://localhost:8080/hvacs/read', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Authoriaztion': 'Bearer'
+                'Authorization': sessionStorage.getItem('jwt')
             },
             body: JSON.stringify({idClient: idUser})
         })
