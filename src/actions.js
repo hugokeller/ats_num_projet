@@ -1,12 +1,14 @@
 
 
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const RECEIVE_TOKEN = 'RECEIVE_TOKEN';
 
 const SERVER_URL = 'http://localhost:8080';
-const GET_AUTH_URL = `${SERVER_URL}/clients/auth`;
+const GET_AUTH_URL = `${SERVER_URL}/auth`;
 const JSON_HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
 };
 
 export const changeInput = (name, value) => ({
@@ -15,22 +17,44 @@ export const changeInput = (name, value) => ({
     value
 });
 
+const receiveToken = (credentials) => ({
+    type: RECEIVE_TOKEN,
+    credentials
+});
+
 export const logIn = (user) => {
+    return (dispatch) => {
         return fetch(`${GET_AUTH_URL}`, {
             method: 'POST',
-            // mode : 'no-cors',
             headers: JSON_HEADERS,
-            mode: 'same-origin',
             body: JSON.stringify({email: user.email, password: user.password})
         })
-            .then(body => console.log(body));
-            // .then(body => body.json())
-            // .then(response => console.log(response));
-            // .then(json => dispatch(receiveChallenge(json, user.password)))
-            // .then(json => dispatch(fetchUsers(fromReducers.getToken(getState()))))
-            // .then(json => dispatch(fetchDevices(fromReducers.getToken(getState()))))
-            // .then(() => dispatch(goHome()))
-            // .catch(error => dispatch(receiveFailure(error)));
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                sessionStorage.setItem('jwt', json.token);
+                sessionStorage.setItem('idUser', json.idUser);
+                dispatch(receiveToken(json))
+            })
+            .catch(err => {throw(err)});
+    }
 };
 
-
+export const postNewUser = user => {
+    // todo confirm password
+    return dispatch => {
+        return fetch('$(SERVER_URL)/clients', {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                company: user.company,
+                email: user.email,
+                password: user.password
+            })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+    }
+};

@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {changeInput} from '../actions';
 
-let Input = ({type = 'text', name, label, className = 'col-xs-12', onInputChange}) => {
+let Input = ({type = 'text', name, label, className, onInputChange}) => {
     let input;
     return (
         <div key={name} className={`form-group ${className}`}>
             <label htmlFor={name}>{label}</label>
-            <input className='form-control'
+            <input className='form-control center-block'
                    ref={node => {
                        input = node;
                    }}
