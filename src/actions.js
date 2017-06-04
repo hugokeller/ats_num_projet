@@ -33,8 +33,28 @@ export const logIn = (user) => {
             .then(json => {
                 console.log(json);
                 sessionStorage.setItem('jwt', json.token);
+                sessionStorage.setItem('idUser', json.idUser);
                 dispatch(receiveToken(json))
             })
             .catch(err => {throw(err)});
+    }
+};
+
+export const postNewUser = user => {
+    // todo confirm password
+    return dispatch => {
+        return fetch('$(SERVER_URL)/clients', {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                company: user.company,
+                email: user.email,
+                password: user.password
+            })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
     }
 };

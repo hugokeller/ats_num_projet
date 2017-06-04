@@ -31,7 +31,7 @@ export default class HvacList extends Component {
             });
     }
     componentWillMount() {
-        this.fetchHvacs(1)
+        this.fetchHvacs(sessionStorage.getItem('idUser'))
     }
     render() {
         return (
