@@ -6,7 +6,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import loginReducer from './reducers';
+import rootReducer from './reducers/index';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 const logger = createLogger();
 const store = createStore(
-    loginReducer,
+    rootReducer,
     applyMiddleware(
         thunkMiddleware,
         logger
