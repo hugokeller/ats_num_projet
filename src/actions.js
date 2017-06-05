@@ -58,3 +58,35 @@ export const postNewUser = user => {
             .then(json => console.log(json))
     }
 };
+
+export const addHvac = hvac => {
+    return dispatch => {
+        return fetch('$(SERVER_URL)/hvacs', {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({
+                sNomHvac: hvac.sNomHvac,
+                sMatricule: hvac.sMatricule,
+                ville: hvac.ville
+            })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+    }
+};
+
+export const getUserInformation = id => {
+    return fetch(SERVER_URL +'/clients/' + id, {
+        method: 'GET',
+        headers: {'Authorization': sessionStorage.getItem('jwt')},
+    })
+        .then(response => response.json())
+};
+
+export const changePassword = (passChangeReq) => {
+    //todo
+};
+
+export const changeEmail = emailChangeReq => {
+    //todo
+};
