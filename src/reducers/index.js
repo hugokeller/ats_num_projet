@@ -1,9 +1,6 @@
-/**
- * Created by Bobo on 30/05/2017.
- */
-import {CHANGE_INPUT} from '../actions/index';
+import {CHANGE_INPUT, RECEIVE_TOKEN} from '../actions';
 import {combineReducers} from 'redux';
-import { profile } from '../actions/index'
+import session from './sessionReducer';
 
 export const input = (state = {}, action) => {
     switch (action.type) {
@@ -29,15 +26,5 @@ export const user = (state = {}, action) => {
     }
 };
 
-const loginReducer = combineReducers({user, inputs});
-export default loginReducer;
-
-/*const addHvacReducer = combineReducers({user, inputs});
- export default addHvacReducer*/
-
-
-const initialState = {
-    username: "Default User",
-    email: "12345678@provider.com",
-    password: "",
-}
+const rootReducer = combineReducers({user, inputs, session});
+export default rootReducer;

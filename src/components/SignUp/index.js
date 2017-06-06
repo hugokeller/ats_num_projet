@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
+import {postNewUser} from '../../actions'
+import sha256 from 'sha256'
 
 export default class SignUp extends Component {
     render() {
@@ -8,17 +10,18 @@ export default class SignUp extends Component {
             <div>
                 <h1>S'inscrire</h1>
                 <div>
-                        <SignUpForm className="card card-block">
-                            <FormInput name="lastname" label="Nom du titulaire du compte" className="col-xs-12"/>
-                            <FormInput name="firstname" label="Prénom du titulaire du compte" className="col-xs-12"/>
-                            <FormInput name="email" label="Adresse mail" className="col-xs-12"/>
-                            <FormInput name="emailconf" label="Confirmez l'adresse mail" className="col-xs-12"/>
-                            <FormInput type="password" name="password" label="Mot de passe" className="col-xs-12"/>
-                            <FormInput type="password" name="passwordconf" label="Confirmation mot de passe" className="col-xs-12"/>
-                            <FormInput name="company" label="Entreprise" className="col-xs-12"/>
-                            <FormInput name="idhvac" label="Numéro de série du nouvel HVAC" className="col-xs-12"/>
-
-                        </SignUpForm>
+                    <SignUpForm className="card card-block">
+                        <div className="col-xs-6">
+                            <FormInput name="lastname" label="Nom du titulaire du compte" className="col-xs-6"/>
+                            <FormInput name="firstname" label="Prénom du titulaire du compte" className="col-xs-6"/>
+                            <FormInput name="company" label="Entreprise" className="col-xs-6"/>
+                        </div>   
+                        <div className="col-xs-6">
+                            <FormInput name="email" label="Adresse mail" className="col-xs-6"/>
+                            <FormInput type="password" name="password" label="Mot de passe" className="col-xs-6"/>
+                            <FormInput type="password" name="passwordconf" label="Confirmation mot de passe" className="col-xs-6"/>
+                        </div>
+                    </SignUpForm>
                 </div>
             </div>
         )
@@ -32,6 +35,7 @@ export const Form = ({children, className, action = 'Inscription', onSubmit, inp
             <button type="submit" className="btn btn-success " onClick={(e) => {
                 e.preventDefault();
                 onSubmit(inputs);
+                {setTimeout(RedirectionJavascript(), 3000)}
             }}>
                 {action}
             </button>
@@ -39,7 +43,9 @@ export const Form = ({children, className, action = 'Inscription', onSubmit, inp
     </form>
 );
 
-
+function RedirectionJavascript(){
+    document.location.href="http://localhost:3000/login";
+}
 
 
 const mapStateToSignUpFormProps = (state) => ({
@@ -47,9 +53,14 @@ const mapStateToSignUpFormProps = (state) => ({
 });
 const mapDispatchToSignUpFormProps = (dispatch, ownProps) => ({
     onSubmit: (inputs) => {
-        dispatch(SignUp({lastname: inputs.lastname.value, firstname: inputs.firstname.value, email: inputs.email.value,
-            emailconf: inputs.emailconf.value, password: inputs.password.value, passwordconf: inputs.passwordconf.value,
-         company: inputs.company.value, IDHVAC: inputs.IDHVAC.value}));
+        dispatch(postNewUser({
+            firstname: inputs.firstname.value,
+            lastname: inputs.lastname.value,
+            company: inputs.company.value,
+            email: inputs.email.value,
+            password: sha256(inputs.password.value),
+            passwordconf: sha256(inputs.passwordconf.value)
+        }));
     }
 });
 

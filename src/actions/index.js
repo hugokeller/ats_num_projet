@@ -1,15 +1,14 @@
-/**
- * Created by Bobo on 30/05/2017.
- */
 
 
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const RECEIVE_TOKEN = 'RECEIVE_TOKEN';
 
-const SERVER_URL = '';
+const SERVER_URL = 'http://localhost:8080';
 const GET_AUTH_URL = `${SERVER_URL}/auth`;
 const JSON_HEADERS = {
     'Accept': 'application/json',
-    'Content-Type': 'application/json; charset=utf-8',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
 };
 
 export const changeInput = (name, value) => ({
@@ -18,55 +17,76 @@ export const changeInput = (name, value) => ({
     value
 });
 
+const receiveToken = (credentials) => ({
+    type: RECEIVE_TOKEN,
+    credentials
+});
+
 export const logIn = (user) => {
-    return fetch(`${GET_AUTH_URL}`, {
-        method: 'POST',
-        headers: JSON_HEADERS,
-        credentials: 'same-origin',
-        body: JSON.stringify({email: user.email, password: user.password})
-    })
-        .then(body => body.json());
-    // .then(json => dispatch(receiveChallenge(json, user.password)))
-    // .then(json => dispatch(fetchUsers(fromReducers.getToken(getState()))))
-    // .then(json => dispatch(fetchDevices(fromReducers.getToken(getState()))))
-    // .then(() => dispatch(goHome()))
-    // .catch(error => dispatch(receiveFailure(error)));
-};
-
-const addHvac = (user) => {
-    return fetch(`${GET_AUTH_URL}`, {
-        method: 'POST',
-        headers: JSON_HEADERS,
-        credentials: 'same-origin',
-        body: JSON.stringify({Nom_HVAC: user.Nom_HVAC, Matricule_HVAC: user.Matricule_HVAC, Nom_du_Client:user.Nom_du_Client,
-            Situation_Geographique: user.Situation_Geographique})
-    })
-        .then(body => body.json());
-};
-export default addHvac()
-
-export const profile = (user) => {
-    return fetch(`${GET_AUTH_URL}`, {
-        method: 'POST',
-        headers: JSON_HEADERS,
-        credentials: 'same-origin',
-        body: JSON.stringify({email: user.email, emailnew: user.emailnew, emailconf:user.emailconf,
-            password: user.password, passwordnew: user.passwordnew, passwordconf: user.passwordconf})
-    })
-        .then(body => body.json());
-};
-
-
-export const usernameEntered = (text) => {
-    return {
-        type: 'USERNAME_ENTERED',
-        text
+    return (dispatch) => {
+        return fetch(`${GET_AUTH_URL}`, {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({email: user.email, password: user.password})
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                sessionStorage.setItem('jwt', json.token);
+                sessionStorage.setItem('idUser', json.idUser);
+                dispatch(receiveToken(json))
+            })
+            .catch(err => {throw(err)});
     }
-}
+};
 
-export const passwordEntered = (text) => {
-    return {
-        type: 'PASSWORD_ENTERED',
-        text
+export const postNewUser = user => {
+    // todo confirm password
+    return dispatch => {
+        return fetch('$(SERVER_URL)/clients', {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                company: user.company,
+                email: user.email,
+                password: user.password
+            })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
     }
-}
+};
+
+export const addHvac = hvac => {
+    return dispatch => {
+        return fetch('$(SERVER_URL)/hvacs', {
+            method: 'POST',
+            headers: JSON_HEADERS,
+            body: JSON.stringify({
+                sNomHvac: hvac.sNomHvac,
+                sMatricule: hvac.sMatricule,
+                ville: hvac.ville
+            })
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+    }
+};
+
+export const getUserInformation = id => {
+    return fetch(SERVER_URL +'/clients/' + id, {
+        method: 'GET',
+        headers: {'Authorization': sessionStorage.getItem('jwt')},
+    })
+        .then(response => response.json())
+};
+
+export const changePassword = (passChangeReq) => {
+    //todo
+};
+
+export const changeEmail = emailChangeReq => {
+    //todo
+};
