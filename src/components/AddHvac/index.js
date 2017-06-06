@@ -45,7 +45,7 @@ const mapDispatchToAddhvacFormProps = (dispatch) => {
             dispatch(addHvac({
                 sNomHvac: inputs.sNomHvac,
                 sMatricule: inputs.sMatricule,
-                ville: inputs.ville
+                idClient: sessionStorage.getItem('idUser')
             }));
         }
     };

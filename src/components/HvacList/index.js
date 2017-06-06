@@ -38,11 +38,10 @@ export default class HvacList extends Component {
             <div>
                 <h1>Liste de mes HVACs</h1>
                 <div>
-                    <ul id = "listbox">
+                    <ul id = "listbox" className="list-group">
                         {this.state.hvacs.map((hvac, i) =>
                         <HvacItem key={i} {...hvac} />
                         )}
-                        {/*<li value="01"><Link to='/hvac1' > {'Nom HVAC: ' + this.state.hvacs[0].name + ' -- ID HVAC:' + this.state.hvacs[0].idhvac} </Link></li>*/}
                     </ul>
                 </div>
             </div>
@@ -50,28 +49,45 @@ export default class HvacList extends Component {
     }
 };
 
-class HvacItem extends Component{
-    constructor(props){
+
+class HvacItem extends Component {
+    constructor(props) {
         super(props);
-        this.collapse = this.collapse.bind(this);
         this.state = {
-            isCollapsed : false
+            isCollapsed: false
         }
     }
-    collapse(e) {
-        e.preventDefault;
-        <Hvac/>
+
+    collapse() {
+        console.log(this.state.isCollapsed);
+        if (!this.state.isCollapsed) {
+            this.setState({
+                isCollapsed: true
+            })
+        } else {
+            this.setState({
+                isCollapsed: false
+            })
+        }
     }
+
     render() {
         return (
             <Router>
-                <li className="col-xs-12">
-                    <label className="col-xs-3">{this.props.sNomHvac}</label>
-                    <label className="col-xs-3">{this.props.sMatricule}</label>
-                    <button className="col-xs-3" onClick={this.collapse}>Consulter</button>
-                    <Route path="/hvac" hvac={this.props} component={Hvac}/>
+                <li className="col-xs-12 list-group-item">
+                    <div className="col-xs-12">
+                        <label className="col-xs-3">{this.props.sNomHvac}</label>
+                        <label className="col-xs-3">{this.props.sMatricule}</label>
+                        <button className="col-xs-3" onClick={this.collapse.bind(this)}><Link
+                            to="/hvac">Consulter</Link></button>
+                    </div>
+                    {this.state.isCollapsed ?
+                        <Route path="/hvac" hvac={this.props} component={() => (<Hvac hvac={this.props}/>)}/> :
+                        null
+                    }
                 </li>
             </Router>
         )
     }
 }
+

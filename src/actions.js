@@ -43,7 +43,7 @@ export const logIn = (user) => {
 export const postNewUser = user => {
     // todo confirm password
     return dispatch => {
-        return fetch('$(SERVER_URL)/clients', {
+        return fetch(SERVER_URL + '/clients', {
             method: 'POST',
             headers: JSON_HEADERS,
             body: JSON.stringify({
@@ -61,13 +61,13 @@ export const postNewUser = user => {
 
 export const addHvac = hvac => {
     return dispatch => {
-        return fetch('$(SERVER_URL)/hvacs', {
+        return fetch(SERVER_URL +'/hvacs', {
             method: 'POST',
             headers: JSON_HEADERS,
             body: JSON.stringify({
                 sNomHvac: hvac.sNomHvac,
                 sMatricule: hvac.sMatricule,
-                ville: hvac.ville
+                idClient: hvac.idClient
             })
         })
             .then(response => response.json())
