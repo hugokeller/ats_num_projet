@@ -61,9 +61,6 @@ class HvacItem extends Component{
     collapse(e) {
         e.preventDefault;
         <Hvac/>
-        this.setState({
-git
-        })
     }
     render() {
         return (
