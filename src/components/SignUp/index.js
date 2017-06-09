@@ -35,6 +35,7 @@ export const Form = ({children, className, action = 'Inscription', onSubmit, inp
             <button type="submit" className="btn btn-success " onClick={(e) => {
                 e.preventDefault();
                 onSubmit(inputs);
+                {setTimeout(RedirectionJavascript(), 3000)}
             }}>
                 {action}
             </button>
@@ -42,7 +43,9 @@ export const Form = ({children, className, action = 'Inscription', onSubmit, inp
     </form>
 );
 
-
+function RedirectionJavascript(){
+    document.location.href="http://localhost:3000/login";
+}
 
 
 const mapStateToSignUpFormProps = (state) => ({

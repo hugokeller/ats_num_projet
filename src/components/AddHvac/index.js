@@ -27,6 +27,7 @@ export const Form = ({children, className, action = 'Ajouter', onSubmit, inputs}
             <button type="submit" className="btn btn-success " onClick={(e) => {
                 e.preventDefault();
                 onSubmit(inputs);
+                {setTimeout(RedirectionJavascript, 3000)}
             }}>
                 {action}
             </button>
@@ -51,3 +52,7 @@ const mapDispatchToAddhvacFormProps = (dispatch) => {
     };
 };
 const AddHvacForm = connect(mapStateToAddhvacFormProps, mapDispatchToAddhvacFormProps)(Form);
+
+function RedirectionJavascript(){
+    document.location.href="http://localhost:3000/meshvac";
+}

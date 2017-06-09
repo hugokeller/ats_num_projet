@@ -30,6 +30,7 @@ export const Form = ({children, className, action = 'Connexion', onSubmit, input
             <button type="submit" className="btn btn-success " onClick={(e) => {
                 e.preventDefault();
                 onSubmit(inputs);
+                {setTimeout(RedirectionJavascript, 3000)}
             }}>
                 {action}
             </button>
@@ -46,3 +47,7 @@ const mapDispatchToLogInFormProps = (dispatch, ownProps) => ({
     }
 });
 const LoginForm = connect(mapStateToLogInFormProps, mapDispatchToLogInFormProps)(Form);
+
+function RedirectionJavascript(){
+    document.location.href="http://localhost:3000/moncompte";
+}

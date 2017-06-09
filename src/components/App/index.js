@@ -7,6 +7,7 @@ import AddHvac from '../AddHvac';
 import Profile from '../Profile';
 import Login from '../Login';
 import SignUp from '../SignUp';
+import Logout from '../Logout';
 import './style.css';
 
 export default class App extends Component {
@@ -27,20 +28,29 @@ export default class App extends Component {
                                 <NavItem eventKey={2}><Link to="/ajouterhvac">Ajouter un HVAC</Link></NavItem>
                             </Nav>
                             <Nav pullRight>
-                                <NavItem eventKey={1}><Link to="/moncompte">Mon Compte</Link></NavItem>
-                                <NavItem eventKey={2}><Link to="/login">Se connecter</Link></NavItem>
-                                <NavItem eventKey={3}><Link to="/signup">S'inscrire</Link></NavItem>
-                                <NavItem eventKey={4}><a href="/" onClick={sessionStorage.removeItem('jwt')}> Se déconnecter</a></NavItem>
+                                {sessionStorage.getItem('jwt') ?
+                                    <NavItem eventKey={1}><Link to="/moncompte">Mon Compte</Link></NavItem>
+                                        : null}
+                                {sessionStorage.getItem('jwt') ?
+                                    <NavItem eventKey={2}><Link to ="/logout">Se déconnecter</Link></NavItem>
+                                        : null}
+                                {!sessionStorage.getItem('jwt') ?
+                                    <NavItem eventKey={3}><Link to="/login">Se connecter</Link></NavItem>
+                                        : null}
+                                {!sessionStorage.getItem('jwt') ?
+                                    <NavItem eventKey={4}><Link to="/signup">Inscription</Link></NavItem>
+                                        : null}
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
-
                     <hr/>
+
                     <Route exact path="/" component={Home}/>
                     <Route path="/meshvac" component={HvacList}/>
                     <Route path="/ajouterhvac" component={AddHvac}/>
                     <Route path="/moncompte" component={Profile}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/logout" component={Logout}/>
                     <Route path="/signup" component={SignUp}/>
                 </div>
             </Router>
