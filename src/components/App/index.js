@@ -14,7 +14,7 @@ export default class App extends Component {
         return (
             <Router>
                 <div>
-                    <Navbar inverse collapseOnSelect>
+                    <Navbar collapseOnSelect>
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to="/">Accueil</Link>
@@ -30,11 +30,12 @@ export default class App extends Component {
                                 <NavItem eventKey={1}><Link to="/moncompte">Mon Compte</Link></NavItem>
                                 <NavItem eventKey={2}><Link to="/login">Se connecter</Link></NavItem>
                                 <NavItem eventKey={3}><Link to="/signup">S'inscrire</Link></NavItem>
+                                <NavItem eventKey={4}><a href="/" onClick={sessionStorage.removeItem('jwt')}> Se déconnecter</a></NavItem>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
-                    <hr/>
 
+                    <hr/>
                     <Route exact path="/" component={Home}/>
                     <Route path="/meshvac" component={HvacList}/>
                     <Route path="/ajouterhvac" component={AddHvac}/>

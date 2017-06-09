@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../forms';
-import addhvac from '../../actions';
+import {addHvac} from '../../actions';
 
 
 export default class AddHvac extends Component {
@@ -11,10 +11,9 @@ export default class AddHvac extends Component {
             <h1>Ajouter un HVAC</h1>
                 <div>
                     <AddHvacForm className="card card-block">
-                        <FormInput name="Nom HVAC" label="Nom HVAC" className="col-xs-12"/>
-                        <FormInput name="Matricule HVAC" label="Matricule HVAC" className="col-xs-12"/>
-                        <FormInput name="Nom du Client" label="Nom du Client" className="col-xs-12"/>
-                        <FormInput name="Situation Geographique" label="Situation Geographique" className="col-xs-12"/>
+                        <FormInput name="sNomHvac" label="Nom HVAC" className="col-xs-12"/>
+                        <FormInput name="sMatricule" label="Matricule HVAC" className="col-xs-12"/>
+                        <FormInput name="ville" label="Ville" className="col-xs-12"/>
                     </AddHvacForm>
                 </div>
             </div>
@@ -40,12 +39,13 @@ const mapStateToAddhvacFormProps = (state) => ({
     inputs: state.inputs,
 });
 
-const mapDispatchToAddhvacFormProps = (dispatch, ownProps) => {
+const mapDispatchToAddhvacFormProps = (dispatch) => {
     return {
         onSubmit: (inputs) => {
-            dispatch(addhvac({
-                Nom_HVAC: inputs.Nom_HVAC, Matricule_HVAC: inputs.Matricule_HVAC,
-                Nom_du_Client: inputs.Nom_du_Client, Situation_Geographique: inputs.Situation_Geographique
+            dispatch(addHvac({
+                sNomHvac: inputs.sNomHvac,
+                sMatricule: inputs.sMatricule,
+                idClient: sessionStorage.getItem('idUser')
             }));
         }
     };
